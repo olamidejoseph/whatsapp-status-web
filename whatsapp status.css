@@ -1,5 +1,4 @@
 /* ===== RESET & BASE STYLES ===== */
-/* Reset all default margins and padding for consistent styling */
 * {
     margin: 0;
     padding: 0;
@@ -7,30 +6,26 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Animated gradient background that cycles through colors */
+/* WhatsApp-inspired animated green gradient background */
+/* Cycles through dark to light green shades for dynamic effect */
 body {
-    background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb);
+    background: linear-gradient(-45deg, #128C7E, #25D366, #075E54, #34B7F1);
     background-size: 400% 400%;
     animation: gradientBG 12s ease infinite;
     min-height: 100vh;
     padding: 20px;
 }
 
-/* Main container to center content with max width */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
 /* ===== HEADER STYLES ===== */
+/* Center-aligned header with gradient text */
 header {
     text-align: center;
     margin-bottom: 30px;
 }
 
-/* Gradient text effect for main title */
+/* Main title with white to light green text gradient */
 header h1 {
-    background: linear-gradient(135deg, #fff, #e0e7ff);
+    background: linear-gradient(135deg, #fff, #dcf8c6);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -44,7 +39,7 @@ header p {
 }
 
 /* ===== MAIN LAYOUT ===== */
-/* Two-column grid layout for editor and preview */
+/* Two-column grid for editor (left) and preview (right) */
 .main-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -52,7 +47,7 @@ header p {
 }
 
 /* ===== CARD COMPONENTS ===== */
-/* Glass-morphism card design with hover effects */
+/* Glass-morphism card with white background and subtle shadow */
 .card {
     background: rgba(255,255,255,0.95);
     padding: 25px;
@@ -62,18 +57,20 @@ header p {
     transition: all 0.3s ease;
 }
 
-/* Lift effect on card hover */
+/* Lift effect on hover for interactive feel */
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 40px rgba(0,0,0,0.15);
 }
 
+/* Card headings in WhatsApp dark green */
 .card h2 {
-    color: #667eea;
+    color: #128C7E;
     margin-bottom: 20px;
 }
 
 /* ===== STATUS TEXT INPUT ===== */
+/* Textarea for status input with smooth transitions */
 #statusText {
     width: 100%;
     min-height: 100px;
@@ -85,32 +82,36 @@ header p {
     transition: all 0.3s;
 }
 
-/* Focus state with brand color glow */
+/* Green glow effect when textarea is focused */
 #statusText:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    border-color: #25D366;
+    box-shadow: 0 0 0 3px rgba(37,211,102,0.1);
 }
 
 /* ===== CONTROLS LAYOUT ===== */
+/* Vertical stack for control groups */
 .controls {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
+/* Horizontal layout for labels and inputs */
 .control-group {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
+/* Fixed width labels for alignment */
 .control-group label {
     min-width: 80px;
     font-weight: 500;
 }
 
 /* ===== FORM CONTROLS ===== */
+/* Consistent styling for dropdowns and color pickers */
 select, input[type="color"] {
     padding: 10px 15px;
     border: 2px solid #e0e0e0;
@@ -119,20 +120,21 @@ select, input[type="color"] {
     flex: 1;
 }
 
-/* Custom range slider styling */
+/* Custom green range slider */
 input[type="range"] {
     flex: 1;
     height: 6px;
     border-radius: 3px;
-    background: #667eea;
+    background: #25D366;
 }
 
+/* Green thumb for range slider */
 input[type="range"]::-webkit-slider-thumb {
     appearance: none;
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #667eea;
+    background: #128C7E;
     cursor: pointer;
 }
 
@@ -144,8 +146,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* ===== BUTTON STYLES ===== */
+/* Base button with WhatsApp green gradient */
 .btn {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #128C7E, #25D366);
     color: white;
     border: none;
     padding: 12px 20px;
@@ -159,27 +162,29 @@ input[type="range"]::-webkit-slider-thumb {
     justify-content: center;
 }
 
-/* Button hover effect with lift and shadow */
+/* Hover effect with lift and shadow */
 .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102,126,234,0.3);
+    box-shadow: 0 5px 15px rgba(37,211,102,0.3);
 }
 
-/* Special download button with success colors */
+/* Download button with darker green gradient */
 .download-btn {
-    background: linear-gradient(135deg, #00b09b, #96c93d);
+    background: linear-gradient(135deg, #075E54, #128C7E);
     width: 100%;
     padding: 15px;
     font-size: 1.1rem;
 }
 
 /* ===== TEXT EFFECTS BUTTONS ===== */
+/* Horizontal container for text effect options */
 .text-effects {
     display: flex;
     gap: 10px;
     margin-top: 15px;
 }
 
+/* Individual effect button styling */
 .effect-btn {
     flex: 1;
     padding: 10px;
@@ -190,20 +195,20 @@ input[type="range"]::-webkit-slider-thumb {
     transition: all 0.3s;
 }
 
-/* Hover state for effect buttons */
+/* Green border on hover */
 .effect-btn:hover {
-    border-color: #667eea;
+    border-color: #25D366;
 }
 
-/* Active state for selected text effect */
+/* Active state with green background */
 .effect-btn.active {
-    background: #667eea;
+    background: #25D366;
     color: white;
-    border-color: #667eea;
+    border-color: #25D366;
 }
 
 /* ===== GRADIENT PRESETS ===== */
-/* Grid layout for 16 gradient options (4x4 on desktop) */
+/* Grid layout for gradient background options */
 .gradient-presets {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -211,7 +216,7 @@ input[type="range"]::-webkit-slider-thumb {
     margin-top: 15px;
 }
 
-/* Individual gradient preset button */
+/* Individual gradient option styling */
 .gradient {
     height: 40px;
     border-radius: 8px;
@@ -220,32 +225,33 @@ input[type="range"]::-webkit-slider-thumb {
     border: 2px solid transparent;
 }
 
-/* Hover effect for gradient presets */
+/* Scale effect on hover with green border */
 .gradient:hover {
     transform: scale(1.05);
-    border-color: #667eea;
+    border-color: #25D366;
 }
 
 /* ===== PREVIEW SECTION ===== */
-/* Sticky preview that stays visible while scrolling */
+/* Sticky preview card that stays visible while scrolling */
 .preview-card {
     position: sticky;
     top: 20px;
 }
 
-/* Main preview area where status is displayed */
+/* Preview area with default WhatsApp green gradient */
 #preview {
     width: 100%;
     height: 400px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #128C7E, #25D366);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
     padding: 30px;
-    background-size: cover;        /* For background images */
-    background-position: center;   /* Center background images */
+    background-size: cover;
+    background-position: center;
+    overflow: auto;
 }
 
 /* Preview text styling */
@@ -255,31 +261,58 @@ input[type="range"]::-webkit-slider-thumb {
     text-align: center;
     line-height: 1.4;
     word-break: break-word;
+    overflow: auto;
+}
+
+/* ===== SHARE BUTTON ===== */
+/* WhatsApp share button with brand colors */
+.share-btn {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    border: none;
+    margin-top: 10px;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Hover effect with reversed gradient */
+.share-btn:hover {
+    background: linear-gradient(135deg, #128C7E, #25D366);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
 }
 
 /* ===== BACKGROUND IMAGE UPLOAD SECTION ===== */
+/* Dedicated section for background image controls */
 .background-image-section {
     margin-top: 20px;
     padding: 20px;
-    background: rgba(102,126,234,0.05);
+    background: rgba(37,211,102,0.05);
     border-radius: 12px;
-    border: 2px dashed rgba(102,126,234,0.3);
+    border: 2px dashed rgba(37,211,102,0.3);
 }
 
+/* Section heading */
 .background-image-section h3 {
-    color: #667eea;
+    color: #128C7E;
     margin-bottom: 15px;
 }
 
+/* Container for upload and clear buttons */
 .image-upload-container {
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
-/* Upload button styling */
+/* Upload button with green background */
 .upload-btn {
-    background: #667eea;
+    background: #25D366;
     color: white;
     padding: 12px 20px;
     border-radius: 8px;
@@ -292,8 +325,9 @@ input[type="range"]::-webkit-slider-thumb {
     border: none;
 }
 
+/* Darker green on hover */
 .upload-btn:hover {
-    background: #5a6fd8;
+    background: #22c55e;
 }
 
 /* Secondary button for clear action */
@@ -309,11 +343,13 @@ input[type="range"]::-webkit-slider-thumb {
     gap: 8px;
 }
 
+/* Darker gray on hover */
 .btn-secondary:hover {
     background: #5a6268;
 }
 
 /* ===== FOOTER ===== */
+/* Centered footer with semi-transparent text */
 .footer {
     text-align: center;
     margin-top: 40px;
@@ -322,26 +358,47 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* ===== ANIMATIONS ===== */
-/* Background gradient animation */
+/* Animated background gradient cycling through green shades */
 @keyframes gradientBG {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0% {
+        background-position: 0% 50%;
+        background: linear-gradient(-45deg, #075E54, #128C7E, #25D366, #34B7F1);
+    }
+    25% {
+        background-position: 50% 50%;
+        background: linear-gradient(-45deg, #128C7E, #25D366, #34B7F1, #075E54);
+    }
+    50% {
+        background-position: 100% 50%;
+        background: linear-gradient(-45deg, #25D366, #34B7F1, #075E54, #128C7E);
+    }
+    75% {
+        background-position: 50% 50%;
+        background: linear-gradient(-45deg, #34B7F1, #075E54, #128C7E, #25D366);
+    }
+    100% {
+        background-position: 0% 50%;
+        background: linear-gradient(-45deg, #075E54, #128C7E, #25D366, #34B7F1);
+    }
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
+/* Tablet and mobile breakpoints */
+
+/* Tablets (768px and below) */
 @media (max-width: 768px) {
-    /* Single column layout on tablets */
+    /* Single column layout */
     .main-content {
         grid-template-columns: 1fr;
     }
     
-    /* Stack controls vertically on mobile */
+    /* Stack controls vertically */
     .control-group {
         flex-direction: column;
         align-items: stretch;
     }
     
-    /* 2x2 grid for gradients on mobile */
+    /* 2-column grid for gradients */
     .gradient-presets {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -351,14 +408,15 @@ input[type="range"]::-webkit-slider-thumb {
         flex-direction: column;
     }
     
+    /* Full width buttons */
     .upload-btn, .btn-secondary {
         width: 100%;
     }
 }
 
-/* Extra small devices (phones) */
+/* Mobile phones (480px and below) */
 @media (max-width: 480px) {
-    /* Single column for gradients on very small screens */
+    /* Single column for gradients */
     .gradient-presets {
         grid-template-columns: 1fr;
     }
