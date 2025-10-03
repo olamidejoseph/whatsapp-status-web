@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hairtea.fx - Forex Trading</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #ff3e7f;
+            --secondary: #2b1055;
+            --accent: #00e5ff;
+            --dark: #0c0129;
+            --light: #f8f9fa;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), var(--secondary));
+            color: var(--light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(11, 1, 41, 0.9);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(43, 16, 85, 0.7), rgba(12, 1, 41, 0.9));
+            z-index: -1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 62, 127, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(0, 229, 255, 0.7), 0 0 30px rgba(0, 229, 255, 0.5);
+            }
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(255, 62, 127, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 62, 127, 0.6);
+        }
+
+        .cta-button:hover:before {
+            left: 100%;
+        }
+
+        /* Trading Stats */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 80px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            width: 200px;
+            margin: 15px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-card i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Trading Strategy Section */
+        .strategy {
+            padding: 100px 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+        }
+
+        .strategy-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 62, 127, 0.1), rgba(0, 229, 255, 0.1));
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .strategy-card:hover:before {
+            opacity: 1;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .strategy-card i {
+            font-size: 40px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .strategy-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .strategy-card p {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Services Page Styles */
+        .services-page {
+            padding: 150px 0 100px;
+            min-height: 100vh;
+        }
+
+        .services-hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .services-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .services-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 62, 127, 0.1), rgba(0, 229, 255, 0.1));
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover:before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: var(--dark);
+        }
+
+        .service-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card p {
+            line-height: 1.7;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .service-features {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .service-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-features i {
+            color: var(--accent);
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .service-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--dark);
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .service-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 62, 127, 0.4);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 62, 127, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 10px;
+            color: var(--light);
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Page Transitions */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button i {
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: var(--accent);
+        }
+
+        .back-button:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .stats {
+                justify-content: center;
+            }
+
+            .services-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo" onclick="showPage('home')"><i class="fas fa-chart-line"></i>Hairtea.fx</a>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('about')">About</a></li>
+                    <li><a href="#" onclick="showPage('services')">I can offer</a></li>
+                    <li><a href="#" onclick="showPage('performance')">Performance</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1>MASTER THE FOREX MARKET</h1>
+                    <p>Professional trading strategies with proven results. Maximize your profits with data-driven analysis.</p>
+                    <a href="#" class="cta-button" onclick="showPage('services')">VIEW SERVICES <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trading Stats -->
+        <section class="stats">
+            <div class="stat-card floating">
+                <i class="fas fa-percentage"></i>
+                <h3>+82%</h3>
+                <p>Average Annual Return</p>
+            </div>
+            <div class="stat-card floating" style="animation-delay: 0.5s;">
+                <i class="fas fa-chart-bar"></i>
+                <h3>1:3.2</h3>
+                <p>Risk/Reward Ratio</p>
+            </div>
+            <div class="stat-card floating" style="animation-delay: 1s;">
+                <i class="fas fa-trophy"></i>
+                <h3>94%</h3>
+                <p>Win Rate</p>
+            </div>
+            <div class="stat-card floating" style="animation-delay: 1.5s;">
+                <i class="fas fa-clock"></i>
+                <h3>24/7</h3>
+                <p>Market Monitoring</p>
+            </div>
+        </section>
+
+        <!-- Trading Strategy Section -->
+        <section class="strategy">
+            <div class="container">
+                <h2 class="section-title">TRADING STRATEGIES</h2>
+                <div class="strategy-cards">
+                    <div class="strategy-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Scalping</h3>
+                        <p>Quick trades capturing small price movements. Perfect for high-frequency trading with tight stop losses.</p>
+                    </div>
+                    <div class="strategy-card">
+                        <i class="fas fa-wave-square"></i>
+                        <h3>Swing Trading</h3>
+                        <p>Capture medium-term market moves. Hold positions for several days to capitalize on market trends.</p>
+                    </div>
+                    <div class="strategy-card">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                        <h3>Position Trading</h3>
+                        <p>Long-term approach based on fundamental analysis. Perfect for capturing major market trends.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Services Page -->
+    <section id="services" class="page">
+        <div class="services-page">
+            <div class="container">
+                <a href="#" class="back-button" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                
+                <div class="services-hero">
+                    <h1>What I Can Offer</h1>
+                    <p>Choose from our premium Forex trading services designed to maximize your profits and minimize risks.</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-signal"></i>
+                        </div>
+                        <h3>Signal Services</h3>
+                        <p>Receive real-time trading signals with precise entry, exit, and stop-loss levels. Perfect for traders who want guidance without full management.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Daily trading signals</li>
+                            <li><i class="fas fa-check"></i> Multiple currency pairs</li>
+                            <li><i class="fas fa-check"></i> Risk management guidance</li>
+                            <li><i class="fas fa-check"></i> 24/7 support</li>
+                            <li><i class="fas fa-check"></i> Telegram/WhatsApp delivery</li>
+                        </ul>
+                        
+                        <div class="service-price">$99/month</div>
+                        <a href="#" class="service-button" onclick="showPage('contact')">Get Started</a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Mentorship Program</h3>
+                        <p>Learn my proven trading strategies through personalized one-on-one sessions. Transform from beginner to profitable trader.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Personalized coaching</li>
+                            <li><i class="fas fa-check"></i> Live trading sessions</li>
+                            <li><i class="fas fa-check"></i> Strategy development</li>
+                            <li><i class="fas fa-check"></i> Psychology training</li>
+                            <li><i class="fas fa-check"></i> Lifetime community access</li>
+                        </ul>
+                        
+                        <div class="service-price">$499/3 months</div>
+                        <a href="#" class="service-button" onclick="showPage('contact')">Enroll Now</a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3>Account Management</h3>
+                        <p>Let me manage your trading account with my proven strategies. Perfect for investors who want hands-off profit generation.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Full account management</li>
+                            <li><i class="fas fa-check"></i> Regular performance reports</li>
+                            <li><i class="fas fa-check"></i> Risk-adjusted returns</li>
+                            <li><i class="fas fa-check"></i> Custom risk parameters</li>
+                            <li><i class="fas fa-check"></i> Monthly withdrawal options</li>
+                        </ul>
+                        
+                        <div class="service-price">20% performance fee</div>
+                        <a href="#" class="service-button" onclick="showPage('contact')">Start Managing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="page">
+        <div class="contact">
+            <div class="container">
+                <a href="#" class="back-button" onclick="showPage('services')"><i class="fas fa-arrow-left"></i> Back to Services</a>
+                
+                <h2 class="section-title">GET IN TOUCH</h2>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <select id="service" class="form-control">
+                                <option value="">Select a service</option>
+                                <option value="signals">Signal Services</option>
+                                <option value="mentorship">Mentorship Program</option>
+                                <option value="management">Account Management</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" class="form-control" placeholder="How can I help you?"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">SEND MESSAGE <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2025 Hairtea.fx Trading. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation function
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            console.clear();
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            return false;
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
