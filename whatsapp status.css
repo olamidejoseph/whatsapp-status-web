@@ -67,6 +67,7 @@ header p {
 .card h2 {
     color: #128C7E;
     margin-bottom: 20px;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
 }
 
 /* ===== STATUS TEXT INPUT ===== */
@@ -252,6 +253,7 @@ input[type="range"]::-webkit-slider-thumb {
     background-size: cover;
     background-position: center;
     overflow: auto;
+    position: relative;
 }
 
 /* Preview text styling */
@@ -260,9 +262,45 @@ input[type="range"]::-webkit-slider-thumb {
     font-size: 28px;
     text-align: center;
     line-height: 1.4;
-    word-break: break-word;
+    word-break: break-all;
     overflow: auto;
+    z-index: 1;
+    position: relative;
+    max-width: fit-content;
+    padding: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
+
+
+/* Add overlay to improve text readability on images */
+#preview::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background: rgba(0,0,0,var(--image-opacity));
+     z-index: 0;
+     border-radius: 10px;
+     transition: opacity 0.3s ease;
+}
+
+
+/* Remove overlay when no background image is set /
+#preview:not([style="background-image"])::before {
+display: none;
+}
+
+/* Ensure the preview area maintains aspect ratio for images */
+#preview {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   --image-opacity: 0.5; /* Default opacity */
+}
+
+
 
 /* ===== SHARE BUTTON ===== */
 /* WhatsApp share button with brand colors */
@@ -323,6 +361,7 @@ input[type="range"]::-webkit-slider-thumb {
     flex: 1;
     justify-content: center;
     border: none;
+
 }
 
 /* Darker green on hover */

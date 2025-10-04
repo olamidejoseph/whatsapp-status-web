@@ -165,6 +165,26 @@ function handleImageUpload(event) {
     }
 }
 
+function updateImageOpacityBasedOnText() {
+    const previewText = document.getElementById('previewText');
+    const previewSection = document.getElementById('preview');
+    
+    const textColor = getComputedStyle(previewText).color;
+    const rgb = textColor.match(/\d+/g);
+    
+    if (rgb) {
+        const brightness = (parseInt(rgb[0]) * 0.299 + 
+                           parseInt(rgb[1]) * 0.587 + 
+                           parseInt(rgb[2]) * 0.114);
+        const brightnessPercent = (brightness / 255) * 100;
+        
+        // Invert: dark text = higher opacity, light text = lower opacity
+        const opacity = Math.max(0.2, Math.min(0.8, brightnessPercent / 100));
+        
+        previewSection.style.setProperty('--image-opacity', opacity);
+    }
+}
+
 function clearBackgroundImage() {
     console.log('Clearing background image');
     
